@@ -61,11 +61,17 @@
     <Reference Include="UIAutomationTypes" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Authorization\AccountCapability.cs" />
+    <Compile Include="Data\Authorization\Capability.cs" />
+    <Compile Include="Data\Authorization\CapabilityMode.cs" />
+    <Compile Include="Data\Authorization\CapabilityType.cs" />
+    <Compile Include="Data\Authorization\DialogCapability.cs" />
     <Compile Include="Data\Dto.cs" />
+    <Compile Include="Data\Authorization\GroupCapability.cs" />
     <Compile Include="Library\Constants.cs" />
     <Compile Include="Presentation\GridModel.cs" />
     <Compile Include="Data\SubDto.cs" />
-    <Compile Include="Data\UserAuthBuilder.cs" />
+    <Compile Include="Data\Authorization\UserAuthorizationFactory.cs" />
     <Compile Include="Presentation\Dialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,7 +93,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Data\UserAuth.cs" />
+    <Compile Include="Data\Authorization\Claim.cs" />
     <Compile Include="Service\DataService.cs" />
     <EmbeddedResource Include="Presentation\Dialog.resx">
       <DependentUpon>Dialog.cs</DependentUpon>
@@ -115,6 +121,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Solution Items\README.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

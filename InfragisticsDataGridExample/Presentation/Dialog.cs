@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 using InfragisticsDataGridExample.Data;
+using InfragisticsDataGridExample.Data.Authorization;
 using InfragisticsDataGridExample.Library;
 
 namespace InfragisticsDataGridExample.Presentation
@@ -38,13 +39,10 @@ namespace InfragisticsDataGridExample.Presentation
                 Constants.AccountEditGroupView 
             };
 
+            // Intentionally doing this after setting the datasource
+            // because otherwise, it triggers the event
             CboAuth.SelectedItem = null;
             CboAuth.SelectedValueChanged += CboAuthSelectedValueChanged;
-        }
-
-        private static IEnumerable<Control> GetPermissibleControls(params Control[] controls)
-        {
-            return controls.ToList();
         }
 
         private static void SetEnabledProperty(Control control, Capability capability)
@@ -76,10 +74,25 @@ namespace InfragisticsDataGridExample.Presentation
 
         private void ConfigureViewFromClaim()
         {
-            //Another option here would be to pull fields inheriting from IPermissibleControl using reflection
-            var controls = GetPermissibleControls(LblGroupName, TxtGroupName, LblGroupNumber, TxtGroupNumber, LblAccountName, TxtAccountName, LblAccountNumber, TxtAccountNumber);
+            var controls = GetPermissibleControls();
 
             ConfigureFields(controls);
+        }
+
+        private IEnumerable<Control> GetPermissibleControls()
+        {
+            //Another option here would be to pull fields inheriting from IPermissibleControl using reflection
+            return new List<Control>
+            {
+                LblGroupName,
+                TxtGroupName,
+                LblGroupNumber,
+                TxtGroupNumber,
+                LblAccountName,
+                TxtAccountName,
+                LblAccountNumber,
+                TxtAccountNumber
+            };
         }
 
         private void ConfigureFields(IEnumerable<Control> controls)
@@ -88,7 +101,8 @@ namespace InfragisticsDataGridExample.Presentation
 
             foreach (var control in controls)
             {
-                var capability = capabilities.FirstOrDefault(x => x.Name == ((IPermissibleControl)control).CapabilityName);
+                var controlCapabilityName = ((IPermissibleControl)control).CapabilityName;
+                var capability = capabilities.FirstOrDefault(x => x.Name == controlCapabilityName);
 
                 SetEnabledProperty(control, capability);
                 SetVisibleProperty(control, capability);
@@ -97,7 +111,7 @@ namespace InfragisticsDataGridExample.Presentation
 
         private void CboAuthSelectedValueChanged(object sender, System.EventArgs e)
         {
-            _claim = UserAuthBuilder.GetClaim(CboAuth.SelectedValue.ToString());
+            _claim = UserAuthorizationFactory.GetClaim(CboAuth.SelectedValue.ToString());
 
             ConfigureViewFromClaim();
         }

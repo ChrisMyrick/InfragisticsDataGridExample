@@ -3,6 +3,7 @@ using InfragisticsDataGridExample.Data;
 
 namespace InfragisticsDataGridExample.Presentation
 {
+    // This is a front-end specific model class. It is specifically for displaying data on the grid.
     public class GridModel
     {
         public string AccountName { get; set; }

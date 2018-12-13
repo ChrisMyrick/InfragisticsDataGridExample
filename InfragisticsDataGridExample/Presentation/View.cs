@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using InfragisticsDataGridExample.Data;
+using InfragisticsDataGridExample.Data.Authorization;
 using InfragisticsDataGridExample.Library;
 using InfragisticsDataGridExample.Service;
 
@@ -19,7 +20,8 @@ namespace InfragisticsDataGridExample.Presentation
             ConfigureGrid();
             ConfigureComboBox();
 
-            _claim = UserAuthBuilder.GetClaim(Constants.CanViewDialog);
+            // Set default claim state
+            _claim = UserAuthorizationFactory.GetClaim(Constants.CanViewDialog);
         }
 
         private static Func<Dto, GridModel> ProjectGridModel()
@@ -57,6 +59,8 @@ namespace InfragisticsDataGridExample.Presentation
         {
             var service = new DataService();
 
+            // The data service returns a Dto object which we project to GridModel in order to
+            // include only columns needed
             var model = service.GetData()
                                 .Select(ProjectGridModel())
                                 .ToList();
@@ -74,7 +78,7 @@ namespace InfragisticsDataGridExample.Presentation
 
         private void CboAuthSelectedValueChanged(object sender, EventArgs e)
         {
-            _claim = UserAuthBuilder.GetClaim(CboAuth.SelectedValue.ToString());
+            _claim = UserAuthorizationFactory.GetClaim(CboAuth.SelectedValue.ToString());
         }
 
         private void DisplayDialog(GridModel model)

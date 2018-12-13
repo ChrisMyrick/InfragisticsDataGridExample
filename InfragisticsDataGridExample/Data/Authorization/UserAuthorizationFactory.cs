@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using InfragisticsDataGridExample.Library;
 
-namespace InfragisticsDataGridExample.Data
+namespace InfragisticsDataGridExample.Data.Authorization
 {
-    public class UserAuthBuilder
+    // Builds authorization scenarios based on user input
+    public class UserAuthorizationFactory
     {
         private static Dictionary<string, Func<Claim>> _scenarioMappings;
+        private static readonly string _userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
 
-        static UserAuthBuilder()
+        static UserAuthorizationFactory()
         {
             BuildScenarioMappings();
         }
 
+        // Configures a dictionary mapping between the user input string and the 
+        // scenario building methods
         public static void BuildScenarioMappings()
         {
             _scenarioMappings = new Dictionary<string, Func<Claim>>
@@ -26,6 +30,7 @@ namespace InfragisticsDataGridExample.Data
             };
         }
 
+        // Uses dictionary to pass through to previously mapped method
         public static Claim GetClaim(string scenario)
         {
             return _scenarioMappings[scenario]();
@@ -35,7 +40,7 @@ namespace InfragisticsDataGridExample.Data
         {
             return new Claim
             {
-                UserName = System.Security.Principal.WindowsIdentity.GetCurrent().Name,
+                UserName = _userName,
                 Capabilities = new List<Capability>
                 {
                     new DialogCapability(CapabilityMode.Visible)
@@ -47,7 +52,7 @@ namespace InfragisticsDataGridExample.Data
         {
             return new Claim
             {
-                UserName = System.Security.Principal.WindowsIdentity.GetCurrent().Name,
+                UserName = _userName,
                 Capabilities = new List<Capability>
                 {
                     new DialogCapability(CapabilityMode.Hidden)
@@ -59,7 +64,7 @@ namespace InfragisticsDataGridExample.Data
         {
             return new Claim
             {
-                UserName = System.Security.Principal.WindowsIdentity.GetCurrent().Name,
+                UserName = _userName,
                 Capabilities = new List<Capability>
                 {
                     new GroupCapability(CapabilityMode.Edit)
@@ -71,7 +76,7 @@ namespace InfragisticsDataGridExample.Data
         {
             return new Claim
             {
-                UserName = System.Security.Principal.WindowsIdentity.GetCurrent().Name,
+                UserName = _userName,
                 Capabilities = new List<Capability>
                 {
                     new AccountCapability(CapabilityMode.Edit)
@@ -83,7 +88,7 @@ namespace InfragisticsDataGridExample.Data
         {
             return new Claim
             {
-                UserName = System.Security.Principal.WindowsIdentity.GetCurrent().Name,
+                UserName = _userName,
                 Capabilities = new List<Capability>
                 {
                     new AccountCapability(CapabilityMode.Visible),
@@ -96,7 +101,7 @@ namespace InfragisticsDataGridExample.Data
         {
             return new Claim
             {
-                UserName = System.Security.Principal.WindowsIdentity.GetCurrent().Name,
+                UserName = _userName,
                 Capabilities = new List<Capability>
                 {
                     new AccountCapability(CapabilityMode.Edit),

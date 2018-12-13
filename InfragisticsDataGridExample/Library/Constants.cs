@@ -7,9 +7,6 @@
         public const string AccountViewGroupEdit = "Account View, Group Edit";
         public const string AccountEditGroupView = "Account Edit, Group View";
 
-        public const string AccountCapability = "Account";
-        public const string GroupCapability = "Group";
-
         public const string CanViewDialog = "Can View Dialog";
         public const string CannotViewDialog = "Cannot View Dialog";
     }
