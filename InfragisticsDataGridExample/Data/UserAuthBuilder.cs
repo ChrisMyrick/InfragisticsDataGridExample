@@ -38,13 +38,7 @@ namespace InfragisticsDataGridExample.Data
                 UserName = System.Security.Principal.WindowsIdentity.GetCurrent().Name,
                 Capabilities = new List<Capability>
                 {
-                    new Capability
-                    {
-                        Type = new CapabilityType{ IsViewBased = true },
-                        Name = "Dialog",
-                        CanEdit = true,
-                        CanView = true
-                    }
+                    new DialogCapability(CapabilityMode.Visible)
                 }
             };
         }
@@ -56,13 +50,7 @@ namespace InfragisticsDataGridExample.Data
                 UserName = System.Security.Principal.WindowsIdentity.GetCurrent().Name,
                 Capabilities = new List<Capability>
                 {
-                    new Capability
-                    {
-                        Type = new CapabilityType{ IsViewBased = true },
-                        Name = "Dialog",
-                        CanEdit = false,
-                        CanView = false
-                    }
+                    new DialogCapability(CapabilityMode.Hidden)
                 }
             };
         }
@@ -74,13 +62,7 @@ namespace InfragisticsDataGridExample.Data
                 UserName = System.Security.Principal.WindowsIdentity.GetCurrent().Name,
                 Capabilities = new List<Capability>
                 {
-                    new Capability
-                    {
-                        Type = new CapabilityType{ IsControlBased = true },
-                        Name = "Group",
-                        CanEdit = true,
-                        CanView = true
-                    }
+                    new GroupCapability(CapabilityMode.Edit)
                 }
             };
         }
@@ -92,13 +74,7 @@ namespace InfragisticsDataGridExample.Data
                 UserName = System.Security.Principal.WindowsIdentity.GetCurrent().Name,
                 Capabilities = new List<Capability>
                 {
-                    new Capability
-                    {
-                        Type = new CapabilityType{ IsControlBased = true },
-                        Name = "Account",
-                        CanEdit = true,
-                        CanView = true
-                    }
+                    new AccountCapability(CapabilityMode.Edit)
                 }
             };
         }
@@ -110,21 +86,8 @@ namespace InfragisticsDataGridExample.Data
                 UserName = System.Security.Principal.WindowsIdentity.GetCurrent().Name,
                 Capabilities = new List<Capability>
                 {
-                    new Capability
-                    {
-                        Type = new CapabilityType{ IsControlBased = true },
-                        Name = "Account",
-                        CanView = true,
-                        CanEdit = false
-                    },
-                    new Capability
-                    {
-                        Type = new CapabilityType{ IsControlBased = true },
-                        Name = "Group",
-                        CanView = true,
-                        CanEdit = true
-
-                    }
+                    new AccountCapability(CapabilityMode.Visible),
+                    new GroupCapability(CapabilityMode.Edit)
                 }
             };
         }
@@ -136,20 +99,8 @@ namespace InfragisticsDataGridExample.Data
                 UserName = System.Security.Principal.WindowsIdentity.GetCurrent().Name,
                 Capabilities = new List<Capability>
                 {
-                    new Capability
-                    {
-                        Type = new CapabilityType{ IsControlBased = true },
-                        Name = "Account",
-                        CanView = true,
-                        CanEdit = true,
-                    },
-                    new Capability
-                    {
-                        Type = new CapabilityType{ IsControlBased = true },
-                        Name = "Group",
-                        CanView = true,
-                        CanEdit = false
-                    }
+                    new AccountCapability(CapabilityMode.Edit),
+                    new GroupCapability(CapabilityMode.Visible)
                 }
             };
         }

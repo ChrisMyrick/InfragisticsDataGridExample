@@ -40,6 +40,7 @@ namespace InfragisticsDataGridExample.Presentation
                 PayeeAddress3 = x.PayeeAddress3,
                 PayeeCity = x.PayeeCity,
                 PayeeStateCode = x.PayeeStateCode,
+                VendorNo = x.VendorNo,
                 SubDtos = x.SubDtos
             };
         }
@@ -78,7 +79,7 @@ namespace InfragisticsDataGridExample.Presentation
 
         private void DisplayDialog(GridModel model)
         {
-            var userHasPermission = _claim.Capabilities.FirstOrDefault(x => x.Type.IsViewBased && x.Name == "Dialog")?.CanView ?? false;
+            var userHasPermission = _claim.Capabilities.FirstOrDefault(x => x is DialogCapability)?.Mode == CapabilityMode.Visible; 
 
             if(userHasPermission)
             {

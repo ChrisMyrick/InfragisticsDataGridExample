@@ -47,6 +47,23 @@ namespace InfragisticsDataGridExample.Presentation
             return controls.ToList();
         }
 
+        private static void SetEnabledProperty(Control control, Capability capability)
+        {
+            control.Enabled = capability?.Mode == CapabilityMode.Edit;
+        }
+
+        private static void SetVisibleProperty(Control control, Capability capability)
+        {
+            if(control.Enabled)
+            {
+                control.Visible = true;
+            }
+            else
+            {
+                control.Visible = capability?.Mode == CapabilityMode.Visible;
+            }
+        }
+
         private void OnBtnCancelClick(object sender, System.EventArgs e)
         {
             Close();
@@ -61,19 +78,20 @@ namespace InfragisticsDataGridExample.Presentation
         {
             //Another option here would be to pull fields inheriting from IPermissibleControl using reflection
             var controls = GetPermissibleControls(TxtGroupName, TxtGroupNumber, TxtAccountName, TxtAccountNumber);
-            
+
             ConfigureFields(controls);
         }
 
         private void ConfigureFields(IEnumerable<Control> controls)
         {
-            var capabilities = _claim.Capabilities.Where(x => x.Type.IsControlBased).ToList();
+            var capabilities = _claim.Capabilities.Where(x => x.Type == CapabilityType.Control).ToList();
 
             foreach (var control in controls)
             {
-                var capability = capabilities.FirstOrDefault(x => x.Type.IsControlBased && x.Name == ((IPermissibleControl)control).CapabilityName);
-                control.Enabled = capability?.CanEdit ?? false;
-                control.Visible = capability?.CanView ?? false;
+                var capability = capabilities.FirstOrDefault(x => x.Name == ((IPermissibleControl)control).CapabilityName);
+
+                SetEnabledProperty(control, capability);
+                SetVisibleProperty(control, capability);
             }
         }
 
