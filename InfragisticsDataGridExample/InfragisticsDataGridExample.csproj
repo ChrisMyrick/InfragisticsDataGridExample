@@ -73,6 +73,9 @@
       <DependentUpon>Dialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentation\IPermissibleControl.cs" />
+    <Compile Include="Presentation\PermissibleLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Presentation\PermissibleTextBox.cs">
       <SubType>Component</SubType>
     </Compile>

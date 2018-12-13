@@ -77,7 +77,7 @@ namespace InfragisticsDataGridExample.Presentation
         private void ConfigureViewFromClaim()
         {
             //Another option here would be to pull fields inheriting from IPermissibleControl using reflection
-            var controls = GetPermissibleControls(TxtGroupName, TxtGroupNumber, TxtAccountName, TxtAccountNumber);
+            var controls = GetPermissibleControls(LblGroupName, TxtGroupName, LblGroupNumber, TxtGroupNumber, LblAccountName, TxtAccountName, LblAccountNumber, TxtAccountNumber);
 
             ConfigureFields(controls);
         }
